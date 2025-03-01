@@ -3,10 +3,12 @@ services:
     container_name: clickhouse
     image: clickhouse/clickhouse-server:25.1.5.31
     environment:
+      - CLICKHOUSE_USER=default
       - CLICKHOUSE_PASSWORD=password
     ports:
       - "8123:8123"
       - "9000:9000"
     volumes:
-      - ./clickhouse-data:/var/lib/clickhouse/  
+      - ./clickhouse-data:/var/lib/clickhouse/
+      - ./init-db:/docker-entrypoint-initdb.d
     restart: unless-stopped
