@@ -1,0 +1,10 @@
+version: 2
+
+models:
+  - name: stg_uk_price_paid
+    # columns:
+    #   - name: year
+    #     tests:
+    #       - unique
+    #       - not_null
+    #   - name: avg_price

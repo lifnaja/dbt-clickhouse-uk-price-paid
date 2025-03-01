@@ -1,0 +1,14 @@
+version: 2
+
+models:
+  - name: avg_land_price_per_year
+    columns:
+      - name: year
+        tests:
+          - unique
+          - not_null
+          - is_positive
+      - name: avg_price
+        tests:
+          - not_null
+          - is_positive

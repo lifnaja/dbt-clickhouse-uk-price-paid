@@ -25,11 +25,9 @@ WITH
         , town
         , district
         , county
-        , toYear(toDateTime(concat(date, ':00'))) AS year
-        FROM {{ source('hm_land_registry', 'uk_price_paid') }}
-        WHERE toYear(toDateTime(concat(date, ':00'))) = 2015
-        -- WHERE toYear(toDateTime(concat(date, ':00'))) = 2020
-        -- WHERE toYear(toDateTime(concat(date, ':00'))) = 2020
+        , toYear(date) AS year
+        FROM {{ ref('stg_uk_price_paid') }}
+        WHERE toYear(date) = 2015
 
     )
 

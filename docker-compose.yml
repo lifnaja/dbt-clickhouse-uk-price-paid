@@ -9,6 +9,9 @@ services:
       - "8123:8123"
       - "9000:9000"
     volumes:
-      - ./clickhouse-data:/var/lib/clickhouse/
+      - clickhouse-data:/var/lib/clickhouse/
       - ./init-db:/docker-entrypoint-initdb.d
     restart: unless-stopped
+
+volumes:
+  clickhouse-data:
