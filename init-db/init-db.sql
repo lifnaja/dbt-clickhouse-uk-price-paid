@@ -2,6 +2,7 @@ CREATE DATABASE hm_land_registry;
 
 CREATE TABLE hm_land_registry.uk_price_paid
 (
+    uuid_string String,
     price String,
     date String,
     postcode LowCardinality(String),
@@ -21,6 +22,7 @@ ORDER BY (addr1, addr2, street, locality);
 
 INSERT INTO hm_land_registry.uk_price_paid
 SELECT
+    uuid_string,
     price,
     date_time,
     postcode,
