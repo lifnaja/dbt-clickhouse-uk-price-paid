@@ -24,5 +24,3 @@ env*/
 
 # But explicitly ignore test.env files
 test.env
-
-.gitkeep
