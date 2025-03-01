@@ -1,0 +1,6 @@
+version: 2
+
+sources:
+- name: hm_land_registry
+  tables:
+  - name: uk_price_paid
