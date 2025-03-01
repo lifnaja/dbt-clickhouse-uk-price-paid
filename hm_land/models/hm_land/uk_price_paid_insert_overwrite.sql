@@ -3,7 +3,7 @@
         order_by='(uuid_string,addr1, addr2, street, locality, year)',
         engine='MergeTree()',
         materialized='incremental',
-        incremental_strategy='append',
+        incremental_strategy='insert_overwrite',
         partition_by='year'
     ) 
 }}

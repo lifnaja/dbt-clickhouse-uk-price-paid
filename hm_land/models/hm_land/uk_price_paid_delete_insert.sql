@@ -3,8 +3,8 @@
         order_by='(uuid_string,addr1, addr2, street, locality, year)',
         engine='MergeTree()',
         materialized='incremental',
-        incremental_strategy='append',
-        partition_by='year'
+        unique_key='uuid_string',
+        incremental_strategy='delete+insert'
     ) 
 }}
 
@@ -26,9 +26,10 @@ WITH
         , district
         , county
         , toYear(toDateTime(concat(date, ':00'))) AS year
-        -- toYear(ParseDateTimeBestEffort(date)) AS year
         FROM {{ source('hm_land_registry', 'uk_price_paid') }}
-        WHERE toYear(toDateTime(concat(date, ':00'))) = 2018
+        WHERE toYear(toDateTime(concat(date, ':00'))) = 2015
+        -- WHERE toYear(toDateTime(concat(date, ':00'))) = 2020
+        -- WHERE toYear(toDateTime(concat(date, ':00'))) = 2020
 
     )
 

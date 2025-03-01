@@ -1,0 +1,11 @@
+hm_land:                                                                                            
+  target: dev                                                                                       
+  outputs:                                                                                          
+    dev:                                                                                            
+      type: clickhouse                                                                              
+      schema: hm_land_dbt                                                                           
+      host: localhost                                                                               
+      port: 8123                                                                                    
+      user: default                                                                                 
+      password: password                                                                            
+      secure: False    
