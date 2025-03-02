@@ -1,0 +1,32 @@
+version: 2
+
+unit_tests:
+  - name: test_is_valid_transform_fiscal_year
+    description: "Test fiscal year and quarter calculations for various dates across the year"
+    model: stg_uk_price_paid
+    
+    given:
+      - input: source('hm_land_registry', 'uk_price_paid')
+        rows:
+          - {uuid_string: "123e4567-e89b-12d3-a456-426614174000", price: "250000", date: "2022-01-15", postcode: "EC1A 1BB", property_type_flag: "detached", is_new: "Y", duration_flag: "freehold", addr1: "123", addr2: "High St", street: "High Street", locality: "City", town: "London", district: "Central", county: "Greater London"}
+          - {uuid_string: "223e4567-e89b-12d3-a456-426614174001", price: "350000", date: "2022-05-20", postcode: "M1 1AE", property_type_flag: "semi-detached", is_new: "N", duration_flag: "leasehold", addr1: "45", addr2: "", street: "Main Road", locality: "Center", town: "Manchester", district: "Central", county: "Greater Manchester"}
+          - {uuid_string: "323e4567-e89b-12d3-a456-426614174002", price: "175000", date: "2022-08-10", postcode: "B1 1AA", property_type_flag: "terraced", is_new: "N", duration_flag: "freehold", addr1: "78", addr2: "Apartment 3", street: "Church Street", locality: "", town: "Birmingham", district: "Central", county: "West Midlands"}
+          - {uuid_string: "423e4567-e89b-12d3-a456-426614174003", price: "420000", date: "2022-10-05", postcode: "EH1 1AF", property_type_flag: "flat", is_new: "Y", duration_flag: "leasehold", addr1: "12", addr2: "Flat 2", street: "Royal Mile", locality: "Old Town", town: "Edinburgh", district: "City Center", county: "Edinburgh"}
+          - {uuid_string: "523e4567-e89b-12d3-a456-426614174004", price: "550000", date: "2022-12-20", postcode: "CF10 1DD", property_type_flag: "detached", is_new: "N", duration_flag: "freehold", addr1: "33", addr2: "", street: "Park Avenue", locality: "Center", town: "Cardiff", district: "Central", county: "Cardiff"}
+
+    expect:
+      rows:
+        # January - Q2 of fiscal year 2022
+        - {uuid_string: "123e4567-e89b-12d3-a456-426614174000", price: 250000, date: "2022-01-15 00:00:00", postcode: "EC1A 1BB", property_type_flag: "detached", is_new: "Y", duration_flag: "freehold", addr1: "123", addr2: "High St", street: "High Street", locality: "City", town: "London", district: "Central", county: "Greater London", fiscal_year: 2022, fiscal_quarter: 2}
+        
+        # May - Q3 of fiscal year 2022
+        - {uuid_string: "223e4567-e89b-12d3-a456-426614174001", price: 350000, date: "2022-05-20 00:00:00", postcode: "M1 1AE", property_type_flag: "semi-detached", is_new: "N", duration_flag: "leasehold", addr1: "45", addr2: "", street: "Main Road", locality: "Center", town: "Manchester", district: "Central", county: "Greater Manchester", fiscal_year: 2022, fiscal_quarter: 3}
+        
+        # # August - Q4 of fiscal year 2022
+        - {uuid_string: "323e4567-e89b-12d3-a456-426614174002", price: 175000, date: "2022-08-10 00:00:00", postcode: "B1 1AA", property_type_flag: "terraced", is_new: "N", duration_flag: "freehold", addr1: "78", addr2: "Apartment 3", street: "Church Street", locality: "", town: "Birmingham", district: "Central", county: "West Midlands", fiscal_year: 2022, fiscal_quarter: 4}
+        
+        # # October - Q1 of fiscal year 2023
+        - {uuid_string: "423e4567-e89b-12d3-a456-426614174003", price: 420000, date: "2022-10-05 00:00:00", postcode: "EH1 1AF", property_type_flag: "flat", is_new: "Y", duration_flag: "leasehold", addr1: "12", addr2: "Flat 2", street: "Royal Mile", locality: "Old Town", town: "Edinburgh", district: "City Center", county: "Edinburgh", fiscal_year: 2023, fiscal_quarter: 1}
+        
+        # # December - Q1 of fiscal year 2023
+        - {uuid_string: "523e4567-e89b-12d3-a456-426614174004", price: 550000, date: "2022-12-20 00:00:00", postcode: "CF10 1DD", property_type_flag: "detached", is_new: "N", duration_flag: "freehold", addr1: "33", addr2: "", street: "Park Avenue", locality: "Center", town: "Cardiff", district: "Central", county: "Cardiff", fiscal_year: 2023, fiscal_quarter: 1}
