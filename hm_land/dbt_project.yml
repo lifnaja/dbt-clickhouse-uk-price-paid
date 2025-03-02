@@ -32,5 +32,10 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   hm_land:
     # Config indicated by + and applies to all files under models/example/
-    example:
+    staging:
       +materialized: view
+      +tags: "staging"  
+    report:
+      +materialized: table
+      +tags: "report"  
+  

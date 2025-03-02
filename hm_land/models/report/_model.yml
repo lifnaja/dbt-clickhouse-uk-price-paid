@@ -2,6 +2,8 @@ version: 2
 
 models:
   - name: avg_land_price_per_year
+    config:
+      tags: "land_price_per_year"
     columns:
       - name: year
         tests:

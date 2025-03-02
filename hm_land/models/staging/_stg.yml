@@ -2,6 +2,8 @@ version: 2
 
 models:
   - name: stg_uk_price_paid
+    config:
+      tags: "land_price_per_year"
     # columns:
     #   - name: year
     #     tests:
